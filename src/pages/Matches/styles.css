@@ -1,0 +1,97 @@
+.matches-card {
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.profile-card-layout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns of equal width */
+  gap: 20px; /* Spacing between cards */
+}
+
+.profile-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding-left: 25%;
+}
+
+
+.chip-container {
+  margin-top: 8px;
+  height: 12px;
+  display: flex;
+  flex-wrap: wrap;
+
+}
+
+.profile-card {
+  width: 240px;
+  height: 300px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.40);
+  border-radius: 35.30px;
+  overflow: hidden;
+  border: 1.18px solid white;
+  backdrop-filter: blur(70.60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 9.41px;
+}
+
+
+/* .profile-image{
+  fill: rgba(255, 255, 255, 0.40);
+stroke-width: 0.808px;
+stroke: #FFF;
+filter: drop-shadow(0px 3.738px 24.232px #A9CFD7);
+backdrop-filter: blur(24.231727600097656px);
+} */
+
+
+
+
+.profile-container {
+  width: 240px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+.profile-name {
+  left: 93.17px;
+  top: 21px;
+  position: absolute;
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 20px;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+}
+
+.profile-image {
+  width: 64px;
+  height: 64px;
+  left: 12px;
+  top: 12px;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.40);
+  box-shadow: 0px 3.738461494445801px 24.231727600097656px #A9CFD7;
+  border-radius: 9999px;
+  border: 0.81px white solid;
+  backdrop-filter: blur(48.46px);
+}
+
+.profile-description {
+
+  overflow: scroll;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  max-height: 40%;
+  word-wrap: break-word; /* Allow multiline text */
+}
