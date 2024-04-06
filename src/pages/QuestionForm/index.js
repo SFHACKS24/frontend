@@ -1,16 +1,4 @@
-import React from "react";
-import {
-  Card,
-  CardBody,
-  Avatar,
-  Textarea,
-  Checkbox,
-  Select,
-  SelectItem,
-  Button,
-  CardFooter,
-  Slider,
-} from "@nextui-org/react";
+import React, { useEffect } from "react";
 
 export const QuestionForm = () => {
   const [questionId, setQuestionId] = React.useState("");
@@ -18,24 +6,28 @@ export const QuestionForm = () => {
   const [answer, setAnswer] = React.useState("");
   const [questionType, setQuestionType] = React.useState(0);
 
-  const uploadDataToBackend = (data) => {
+  const uploadAnswer = (data) => {
     // Code to upload data to the backend
   };
 
-  const handleUpload = () => {
-    // Save the user's profile data to localStorage
-    // localStorage.setItem("profileData", JSON.stringify(profileData));
-
-    // // Upload the data to the backend
-    // uploadDataToBackend(profileData);
-
+  const handleSubmit = () => {
     // Redirect to the next page
     window.location.href = "/questions";
   };
 
-  const handleSubmit = () => {
-    handleUpload();
-  };
+  useEffect(() => {
+    // Fetch the question data from the backend
+    fetch("/getQuestion")
+      .then((response) => response.json())
+      .then((data) => {
+        setQuestionId(data.id);
+        setQuestionText(data.text);
+        setQuestionType(data.type);
+      })
+      .catch((error) => {
+        console.error("Error fetching question data:", error);
+      });
+  }, []);
 
   return (
     <div>

@@ -9,7 +9,7 @@ import router from "./routing/routes";
 function App() {
   return (
     <NextUIProvider>
-      <main className="light text-foreground bg-background">
+      <main className="light text-foreground bg-background main-container">
         <RouterProvider router={router} />
       </main>
     </NextUIProvider>

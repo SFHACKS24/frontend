@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export function setItem(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
@@ -40,4 +42,16 @@ export function getAllData() {
     data[key] = value;
   }
   return data;
+}
+
+// Function to generate a cookie in localStorage that uses timestamp and a random UUID
+export function startSession() {
+  const timestamp = Date.now();
+  const uuid = uuidv4();
+  const cookie = `${timestamp}-${uuid}`;
+  setItem("userId", cookie);
+}
+
+export function clearSession() {
+  removeItem("userId");
 }

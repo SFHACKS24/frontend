@@ -1,5 +1,6 @@
 import "./styles.css";
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import {
   Card,
   CardBody,
@@ -12,6 +13,7 @@ import {
   CardFooter,
   Slider,
 } from "@nextui-org/react";
+import { getItem } from "../../helpers/localStorage";
 
 const genders = [
   ["M", "Male"],
@@ -25,15 +27,16 @@ export const Profile = () => {
   const [name, setName] = React.useState("");
   const [occupation, setOccupation] = React.useState("");
   const [age, setAge] = React.useState("");
-  const [gender, setGender] = React.useState("");
+  const [gender, setGender] = React.useState("M");
   const [location, setLocation] = React.useState("");
   const [budget, setBudget] = React.useState(5000);
+  const [userId, setUserId] = React.useState("");
 
   const uploadDataToBackend = (data) => {
-    // Code to upload data to the backend
+    axios.post("/profile", data);
   };
 
-  const handleUpload = () => {
+  const handleSubmit = () => {
     const profileData = {
       hasRoom,
       name,
@@ -54,13 +57,18 @@ export const Profile = () => {
     window.location.href = "/questions";
   };
 
-  const handleSubmit = () => {
-    handleUpload();
-  };
-
   const handleSelectionChange = (e) => {
     setGender(e.target.key);
   };
+
+  useEffect(() => {
+    const storedId = getItem("userId");
+    if (!storedId) {
+      window.location.href = "/";
+    }
+    // TODO: Check if the user has already filled out their profile
+    setUserId(storedId);
+  }, []);
 
   return (
     <div className="profile-container">
