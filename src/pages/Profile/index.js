@@ -12,6 +12,7 @@ import {
   Button,
   CardFooter,
   Slider,
+  CardHeader,
 } from "@nextui-org/react";
 import { getItem } from "../../helpers/localStorage";
 
@@ -80,8 +81,11 @@ export const Profile = () => {
         shadow="sm"
         isBlurred
       >
+        {/* <CardHeader className="text-xl text-primary pt-4">
+          Basic Profile
+        </CardHeader> */}
         <CardBody className="justify-between">
-          <div className="flex flex-row gap-4 items-start justify-left py-4 pb-8">
+          <div className="flex flex-row gap-4 items-start justify-left pt-8 pb-8">
             <Avatar
               isBordered
               radius="full"
@@ -163,7 +167,7 @@ export const Profile = () => {
                 defaultValue={5000}
                 value={budget}
                 formatOptions={{ style: "currency", currency: "USD" }}
-                onChangeEnd={setBudget}
+                onChange={setBudget}
               ></Slider>
             </div>
           </div>
