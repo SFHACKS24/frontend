@@ -1,7 +1,37 @@
+import "./styles.css";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Button, Slider, Textarea } from "@nextui-org/react";
+import {
+  Button,
+  Select,
+  SelectItem,
+  Slider,
+  Textarea,
+} from "@nextui-org/react";
+
+const traits = [
+  "Cleanliness",
+  "Noise level",
+  "Socializing",
+  "Cooking habits",
+  "Sleep schedule",
+  "Guest policy",
+  "Communication",
+  "Shared items",
+  "Pets",
+  "Smoking",
+  "Drinking",
+  "Partying",
+  "Religious practices",
+  "Political views",
+  "Climate control",
+  "Bathroom schedule",
+  "Laundry habits",
+  "Study habits",
+  "Work schedule",
+  "Hobbies",
+];
 
 export const QuestionForm = () => {
   const navigate = useNavigate();
@@ -11,7 +41,7 @@ export const QuestionForm = () => {
   const [binaryAnswer, setBinaryAnswer] = React.useState(true);
   const [sliderAnswer, setSliderAnswer] = React.useState(5);
   const [textAnswer, setTextAnswer] = React.useState("");
-
+  const [choices, setChoices] = React.useState(new Set([]));
   const uploadAnswer = (data) => {
     // Code to upload data to the backend
   };
@@ -97,19 +127,20 @@ export const QuestionForm = () => {
             ></Slider>
           </div>
         )}
-        {questionType === 2 && (
-          <div className="h-64">
-            <Textarea
-              className="w-full mix-blend-multiply"
-              minRows={64}
-              placeholder="I think that..."
-              value={textAnswer}
-              onValueChange={setTextAnswer}
-              size="lg"
-            />
-          </div>
-        )}
-        {questionType === 3 && (
+        {questionType === 2 ||
+          (questionType === 5 && (
+            <div className="h-64">
+              <Textarea
+                className="w-full mix-blend-multiply"
+                minRows={64}
+                placeholder="I think that..."
+                value={textAnswer}
+                onValueChange={setTextAnswer}
+                size="lg"
+              />
+            </div>
+          ))}
+        {questionType === 4 && (
           <div className="w-full self-center flex flex-col gap-4 align-center justify-center">
             <span className="w-full text-2xl text-balance text-center">
               Now it's your turn. What question would you ask your roommate?
@@ -126,24 +157,27 @@ export const QuestionForm = () => {
             ></Textarea>
           </div>
         )}
-        {questionType === 4 && (
-          <div>
-            <Textarea
-              className="w-full h-8"
-              placeholder="Berkeley, CA..."
-              value={textAnswer}
-              onValueChange={setTextAnswer}
-            ></Textarea>
-          </div>
-        )}
-        {questionType === 5 && (
-          <div>
-            <Textarea
-              className="w-full h-8"
-              placeholder="Berkeley, CA..."
-              value={textAnswer}
-              onValueChange={setTextAnswer}
-            ></Textarea>
+        {questionType === 3 && (
+          <div className="w-full self-center flex flex-col gap-4 align-center justify-center">
+            <span className="w-full text-2xl text-balance text-center">
+              What traits are the most important in a roommate?
+            </span>
+            <span className="text-xl text-balance text-center">
+              Choose the most important ones!
+            </span>
+            <Select
+              label="Roommate traits"
+              className="w-full"
+              selectedKeys={choices}
+              selectionMode="multiple"
+              onSelectionChange={setChoices}
+            >
+              {traits.map((value, idx) => (
+                <SelectItem key={idx} value={idx}>
+                  {value}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
         )}
         <Button
