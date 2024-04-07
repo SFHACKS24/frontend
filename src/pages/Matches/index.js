@@ -1,43 +1,54 @@
 import React from "react";
 import { useEffect } from "react";
 import "./styles.css";
-import { Card, CardBody, Avatar, Button, Chip, Tooltip } from "@nextui-org/react";
-import axios from 'axios'; 
+import {
+  Card,
+  CardBody,
+  Avatar,
+  Button,
+  Chip,
+  Tooltip,
+} from "@nextui-org/react";
+import axios from "axios";
 
-
-
-function ProfileCard({ name, score, blurb, profileImage, showModal, setShowModal}) {
-
-
-
+function ProfileCard({
+  name,
+  score,
+  blurb,
+  profileImage,
+  showModal,
+  setShowModal,
+}) {
   return (
     <div>
-    <div className="matches-card">
-      <div className="profile-card">
-        <div className="profile-container">
-          <div className="profile-name">{name}</div>
-          <div className="profile-image">
-            <img src={profileImage} alt="Profile" />
+      <div className="matches-card">
+        <div className="profile-card">
+          <div className="profile-container">
+            <div className="profile-name">{name}</div>
+            <div className="profile-image">
+              <img src={profileImage} alt="Profile" />
+            </div>
+            <div className="chip-container">
+              {score !== null && <Chip color="success">{score}%</Chip>}
+            </div>
           </div>
-          <div className="chip-container">
-            {score !== null && <Chip color="success">{score}%</Chip>}
+          <div className="profile-description">{blurb}</div>
+          <div
+            className="profile-button-container"
+            style={{ position: "absolute", bottom: "16px" }}
+          >
+            <Button
+              color="success"
+              onClick={() => {
+                setShowModal(!showModal);
+              }}
+            >
+              See more
+            </Button>
           </div>
-        </div>
-        <div className="profile-description">{blurb}</div>
-        <div
-          className="profile-button-container"
-          style={{ position: "absolute", bottom: "16px" }}
-        >
-          <Button color="success" onClick={() => {
-           
-            setShowModal(!showModal);
-          }}>See more</Button>
         </div>
       </div>
     </div>
-    
-    </div>
-    
   );
 }
 
@@ -46,22 +57,46 @@ export default ProfileCard;
 export const Matches = () => {
   const [profileImage, setProfileImage] = React.useState("");
   const [name, setName] = React.useState("");
-  const [score, setScore] = React.useState(null); 
+  const [score, setScore] = React.useState(null);
   const [blurb, setBlurb] = React.useState("");
-  
+
   const data = [
-    { name: 'John', score: 90, blurb: "I'm a software developer with experience in web development and mobile app development. I'm looking for roommates to play music with. ", profileImage: "src/images/profile-img1.jpg"},
-    { name: 'Jane', score: 85, blurb: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', profileImage: "src/images/profile-img1.jpg"},
-    { name: 'Alice', score: 95, blurb: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' , profileImage: "src/images/profile-img1.jpg"}, 
-    { name: 'Bob', score: 80, blurb: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',  profileImage: "src/images/profile-img1.jpg"}
+    {
+      name: "John",
+      score: 90,
+      blurb:
+        "I'm a software developer with experience in web development and mobile app development. I'm looking for roommates to play music with. ",
+      profileImage: "src/images/profile-img1.jpg",
+    },
+    {
+      name: "Jane",
+      score: 85,
+      blurb:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      profileImage: "src/images/profile-img1.jpg",
+    },
+    {
+      name: "Alice",
+      score: 95,
+      blurb:
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      profileImage: "src/images/profile-img1.jpg",
+    },
+    {
+      name: "Bob",
+      score: 80,
+      blurb:
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+      profileImage: "src/images/profile-img1.jpg",
+    },
   ];
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-   
+
   const [showModal, setShowModal] = React.useState(false);
-  
+
   return (
     <>
       {!showModal && (
@@ -90,16 +125,11 @@ export const Matches = () => {
       )}
 
       {showModal && (
-        
-         
-    
         <div className="modal-card">
-        
-      
-        <div className="profile-container">
-          <div className="profile-name-modal">Jason</div>
-          <div className="profile-image-modal">
-{/*             
+          <div className="profile-container">
+            <div className="profile-name-modal">Jason</div>
+            <div className="profile-image-modal">
+              {/*             
           <Avatar
               isBordered
               radius="full"
@@ -107,78 +137,65 @@ export const Matches = () => {
               src="/favicon.ico"
               showFallback
             /> */}
-          </div> 
-      
-          <div className="chip-container-modal">
-            <Chip color="success" style={{scale: "150%"}}>90%</Chip>
+            </div>
+
+            <div className="chip-container-modal">
+              <Chip color="success" style={{ scale: "150%" }}>
+                90%
+              </Chip>
+            </div>
           </div>
-         
-        </div>
-        <Chip onClose={toggleModal} color="success"  style={{ position: "absolute", scale: "120%", right: "3%" }}>
-          Close
-        </Chip>
-        
-        
+          <Chip
+            onClose={toggleModal}
+            color="success"
+            style={{ position: "absolute", scale: "120%", right: "3%" }}
+          >
+            Close
+          </Chip>
 
-        <div className="user-description"> 
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
-        <div className="info-card">  
-            <div className="card-header">
-              Basic Info
+          <div className="user-description">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+              }}
+            >
+              <div className="info-card">
+                <div className="card-header">Basic Info</div>
+
+                <div>
+                  <div className="info-title">Age: </div>
+                  <div className="info-title">Gender: </div>
+                  <div className="info-title">Occupation: </div>
+                  <div className="info-title">Has room: </div>
+                  <div className="info-title">Preferred Location: </div>
+                  <Chip color="success">Berkeley</Chip>
+                  <div className="info-title">Budget: </div>
+                  <Chip color="success">1200</Chip>
+                </div>
               </div>
+              <div style={{ position: "absolute", scale: "120%", left: "55%" }}>
+                <span className="chart-title">Here's how you match</span>
 
-              <div> 
-              <div className="info-title">Age: </div>
-              <div className="info-title">Gender: </div>
-              <div className="info-title">Occupation: </div>
-              <div className="info-title">Has room: </div>
-              <div className="info-title">Preferred Location: </div>
-              <Chip color="success">Berkeley</Chip>
-              <div className="info-title">Budget: </div>
-              <Chip color="success">1200</Chip>
+                <img src="src/images/chart.png" alt="chart" />
               </div>
+            </div>
+            <div style={{ marginTop: "4%", flexDirection: "column" }}>
+              <span className="text-xl pb-4 profile-title">
+                Answers to your questions
+              </span>
 
-        </div>
-        <div style={{ position: "absolute", scale: "120%", left: "55%" }} > 
-        <span className="chart-title">
-              Here's how you match
-            </span>
-
-            <img src="src/images/chart.png" alt="chart" />  
-
-          
-        </div>
-
-       
-
-        </div>
-        <div style={{marginTop: "4%", flexDirection: "column"}}>
-            <span className="text-xl pb-4 profile-title">
-              Answers to your questions
-            </span>
-
-            <div style={{marginTop: "3%"}}> 
-            <span className="chart-title" >
-              Questions: 
-            </span>
-              
-            </div> 
-            <div style={{marginTop: "3%"}}> 
-            <span className="chart-title">
-              Answer: 
-            </span>
-            </div> 
-
-              
-
-
+              <div style={{ marginTop: "3%" }}>
+                <span className="chart-title">Questions:</span>
+              </div>
+              <div style={{ marginTop: "3%" }}>
+                <span className="chart-title">Answer:</span>
+              </div>
+            </div>
           </div>
-
         </div>
-       
-      </div>
       )}
     </>
   );
 };
-
