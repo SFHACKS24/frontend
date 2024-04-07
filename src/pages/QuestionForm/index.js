@@ -42,12 +42,14 @@ export const QuestionForm = () => {
   const [targetUser, setTargetUser] = React.useState("");
   const [cookie, setCookie] = React.useState("");
   const [softmatch, setSoftmatch] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState("");
 
   const refreshCachedAnswers = () => {
     setBinaryAnswer(true);
     setSliderAnswer(5);
     setTextAnswer("");
     setChoices(new Set([]));
+    setErrorMessage("");
   };
 
   const uploadAnswer = (data) =>
@@ -103,14 +105,14 @@ export const QuestionForm = () => {
         userId,
         qnsId: questionId,
       });
-      const { status } = response.data;
+      const { status, prompt } = response.data;
       console.log(`Received status ${status} ${typeof status}`);
       if (status === 0) {
         fetchQuestion();
       } else if (status === 1) {
         // TODO: Prompt was bad, ask again
-        console.log("Prompt was bad, ask again");
-        fetchQuestion();
+        setErrorMessage(prompt);
+        // fetchQuestion();
       } else if (status === 2) {
         // Short-circuit
         fetchQuestion();
@@ -220,7 +222,12 @@ export const QuestionForm = () => {
               </div>
             )}
             {(questionType === 2 || questionType === 5) && (
-              <div className="h-64">
+              <div className="h-64 w-full self-center flex flex-col gap-4 align-center justify-center">
+                {errorMessage && (
+                  <span className="text-lg w-full text-center text-primary">
+                    {errorMessage}
+                  </span>
+                )}
                 <Textarea
                   className="w-full mix-blend-multiply"
                   minRows={64}
