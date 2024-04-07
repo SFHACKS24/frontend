@@ -12,6 +12,8 @@ import {
   CardFooter,
   CircularProgress,
   Divider,
+  Slider,
+  Progress,
 } from "@nextui-org/react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -173,6 +175,7 @@ export const Matches = () => {
                           radius="full"
                           size="md"
                           src="/avatars/avatar-1.png"
+                          showFallback
                         />
                         <div className="flex flex-col gap-1 items-start justify-center">
                           <h4 className="text-small font-semibold leading-none text-default-600">
@@ -229,7 +232,8 @@ export const Matches = () => {
                 isBordered
                 radius="full"
                 className="w-20 h-20 text-large"
-                src="/avatars/avatar-1.png"
+                src="/profile-img1.png"
+                showFallback
               />
               <div className="flex flex-col gap-1 items-start justify-center">
                 <h4 className="text-lg font-semibold leading-none text-default-600">
@@ -257,8 +261,28 @@ export const Matches = () => {
           <CardBody className="px-3 py-0 text-small text-default-400 w-full h-full flex flex-row">
             <div className="flex flex-col w-1/2 h-full">
               <span className="pt-2 pb-2 text-primary text-lg">Summary</span>
-              <span className="pt-2 text-gray-600 text-balance">
+              <span className="pt-2 text-gray-600 text-balance pb-4">
                 {userInformation[activeUser]["summary"]}
+              </span>
+              <span className="pt-2 pb-2 text-primary text-lg">Budget</span>
+              <Progress
+                label="Monthly limit"
+                size="sm"
+                value={
+                  parseInt(
+                    userInformation[activeUser]["profile"]["budget"],
+                    10
+                  ) || 0
+                }
+                maxValue={10000}
+                color="warning"
+                formatOptions={{ style: "currency", currency: "USD" }}
+                showValueLabel={true}
+                className="max-w-md pb-4"
+              />
+              <span className="pt-2 pb-2 text-primary text-lg">Location</span>
+              <span className="pt-2 text-gray-600 text-balance pb-4">
+                {userInformation[activeUser]["profile"]["location"]}
               </span>
             </div>
             <Divider orientation="vertical" className="m-4" />
