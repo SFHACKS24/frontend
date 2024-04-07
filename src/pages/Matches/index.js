@@ -187,7 +187,7 @@ export const Matches = () => {
                         </div>
                       </div>
                       <Chip color="default">
-                        Compatibility: {user["compatibilityScore"]}%
+                        Compatibility: {10* user["compatibilityScore"]}%
                       </Chip>
                     </CardHeader>
                     <CardBody className="px-3 py-0 text-small text-default-400">
@@ -245,7 +245,7 @@ export const Matches = () => {
               </div>
             </div>
             <Chip color="default" className="ml-auto text-md">
-              Compatibility: {userInformation[activeUser]["compatibilityScore"]}
+              Compatibility: {10*userInformation[activeUser]["compatibilityScore"]}
               %
             </Chip>
             <Button
