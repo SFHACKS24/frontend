@@ -23,14 +23,23 @@
   flex-wrap: wrap;
 }
 
+.profile-card-area{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  background: rgba(217, 242, 245);
+  border-radius: 35.3px;
+
+}
 .profile-card {
   width: 240px;
   height: 300px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(217, 242, 245);
   border-radius: 35.3px;
   overflow: hidden;
-  border: 1.18px solid white;
+  /* border: 1.18px solid white; */
   backdrop-filter: blur(70.6px);
   display: flex;
   flex-direction: column;

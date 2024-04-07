@@ -225,6 +225,7 @@ export const Matches = () => {
       )}
 
       {showModal && (
+        <div className="custom-card">
         <Card className="w-3/4 p-8">
           <CardHeader className="justify-between">
             <div className="flex gap-5">
@@ -244,7 +245,7 @@ export const Matches = () => {
                 </h5>
               </div>
             </div>
-            <Chip color="default" className="ml-auto text-md">
+            <Chip color="success" className="ml-auto text-md">
               Compatibility: {userInformation[activeUser]["compatibilityScore"]}
               %
             </Chip>
@@ -311,6 +312,7 @@ export const Matches = () => {
             </div>
           </CardBody>
         </Card>
+      </div>
         // <div className="modal-card">
         //   <div className="profile-container">
         //     <div className="profile-name-modal">Jason</div>
