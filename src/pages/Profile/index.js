@@ -155,6 +155,7 @@ export const Profile = () => {
               <Checkbox
                 isSelected={hasRoom}
                 onValueChange={setHasRoom}
+                color="success"
                 className="border-transparent"
               >
                 <span className="text-primary">{hasRoom ? "Yes" : "No"}</span>
@@ -176,6 +177,7 @@ export const Profile = () => {
               <Slider
                 label="What is your maximum budget?"
                 className="w-full h-16 text-primary"
+                color="success"
                 step={100}
                 maxValue={10000}
                 minValue={0}
@@ -188,7 +190,7 @@ export const Profile = () => {
           </div>
         </CardBody>
         <CardFooter className="flex flex-row justify-end">
-          <Button color="primary" onClick={handleSubmit}>
+          <Button color="success" onClick={handleSubmit}>
             Next
           </Button>
         </CardFooter>

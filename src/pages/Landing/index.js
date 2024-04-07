@@ -20,10 +20,10 @@ export const Landing = () => {
     <div className="landing-container gap-4">
       <img className="size-48" src="/greenflag.png" alt="logo" />
       <h1 className="text-8xl text-primary">greenflags</h1>
-      <h2 className="text-2xl font-bold pb-8">
+      <h2 className="pb-5 subfont">
         Supercharged roommate vibechecks
       </h2>
-      <Button color="success" className="w-1/4" onClick={handleSubmit}>
+      <Button color="success" className="custom-width-button" onClick={handleSubmit}>
         Let's start!
       </Button>
     </div>

@@ -256,7 +256,7 @@ export const QuestionForm = () => {
                   color="primary"
                   variant={binaryAnswer ? "solid" : "bordered"}
                   onClick={handleBinaryTrue}
-                  className="w-1/2 h-16 text-xl"
+                  className="w-1/3 h-12 text-xl"
                 >
                   True
                 </Button>
@@ -264,7 +264,7 @@ export const QuestionForm = () => {
                   color="secondary"
                   variant={!binaryAnswer ? "solid" : "bordered"}
                   onClick={handleBinaryFalse}
-                  className="w-1/2 h-16 text-xl"
+                  className="w-1/3 h-12 text-xl"
                 >
                   False
                 </Button>
@@ -275,6 +275,7 @@ export const QuestionForm = () => {
                 <Slider
                   label="Enter your response"
                   className="w-full h-16 text-primary"
+                  color="success"
                   step={1}
                   maxValue={10}
                   minValue={0}
@@ -342,7 +343,7 @@ export const QuestionForm = () => {
               </div>
             )}
             <Button
-              color="primary"
+              color="success"
               onClick={handleSubmit}
               isLoading={buttonLoading}
               className="self-center w-1/4"
