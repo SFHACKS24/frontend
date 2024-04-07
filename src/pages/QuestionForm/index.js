@@ -44,7 +44,6 @@ export const QuestionForm = () => {
   const [cookie, setCookie] = React.useState("");
   const [errorMessage, setErrorMessage] = React.useState("");
   const [buttonLoading, setButtonLoading] = React.useState(false);
-  const [toastId, setToastId] = React.useState(null);
 
   const refreshCachedAnswers = () => {
     setBinaryAnswer(true);
@@ -67,6 +66,7 @@ export const QuestionForm = () => {
     let isPromptAns = false;
     let userId;
     setButtonLoading(true);
+    toast.dismiss();
     switch (questionType) {
       case 0: {
         answer = binaryAnswer;
@@ -209,7 +209,7 @@ export const QuestionForm = () => {
           </div>
         </div>
       ),
-      { duration: 10000 }
+      { duration: 4000 }
     );
 
   useEffect(() => {
@@ -218,7 +218,7 @@ export const QuestionForm = () => {
     setCookie(storedId);
     if (!storedId) return navigate("/");
     fetchQuestion();
-  }, [navigate, isLoaded, cookie, fetchQuestion]);
+  }, [navigate, setCookie, fetchQuestion]);
 
   /* getQuestion
     0 -> Binary

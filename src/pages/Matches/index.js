@@ -44,7 +44,7 @@ function ProfileCard({
               color="success"
               onClick={() => {
                 setShowModal(!showModal);
-                console.log(dataKey)
+                console.log(dataKey);
                 setUserID(dataKey);
               }}
             >
@@ -76,7 +76,7 @@ export const Matches = () => {
   const [answer, setAnswer] = React.useState("answer placeholder");
   const [chart, setChart] = React.useState("src/images/chart.png");
 
-  const data = [
+  const userData = [
     {
       name: "John",
       score: 90,
@@ -112,14 +112,18 @@ export const Matches = () => {
   const [userIDs, setUserIDs] = React.useState([]);
 
   const fetchRanking = useCallback(async () => {
-    const { content } = (await axios
-      .post(`${API_ENDPOINT}/getRanking`, { cookie })).data;
+    const { content } = (
+      await axios.post(`${API_ENDPOINT}/getRanking`, { cookie })
+    ).data;
     console.log(content);
     setUserIDs(content);
 
-
-    const data = (await axios
-      .post(`${API_ENDPOINT}/getprofile`, { cookie, userIds: content })).data;
+    const data = (
+      await axios.post(`${API_ENDPOINT}/getprofile`, {
+        cookie,
+        userIds: content,
+      })
+    ).data;
     console.log(data);
     setUserInformation(data);
   }, [navigate, cookie]);
