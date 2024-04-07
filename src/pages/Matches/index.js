@@ -1,24 +1,13 @@
 import React from "react";
 import { useEffect } from "react";
 import "./styles.css";
-import {
-  Card,
-  CardBody,
-  Avatar,
-  Button,
-  Chip,
-  Tooltip,
-} from "@nextui-org/react";
-import axios from "axios";
+import { Card, CardBody, Avatar, Button, Chip, Tooltip } from "@nextui-org/react";
+import axios from 'axios'; 
+import { API_ENDPOINT } from "../../helpers/api";
+import { useNavigate } from "react-router-dom";
 
-function ProfileCard({
-  name,
-  score,
-  blurb,
-  profileImage,
-  showModal,
-  setShowModal,
-}) {
+function ProfileCard({ key, name, score, blurb, profileImage, showModal, setShowModal, setUserID}) {
+
   return (
     <div>
     <div className="matches-card">
@@ -26,7 +15,7 @@ function ProfileCard({
         <div className="profile-container">
           <div className="profile-name">{name}</div>
           <div className="profile-image">
-            <img src={profileImage} alt="Profile" />
+         
           </div>
           <div className="chip-container">
             {score !== null && <Chip color="success">{score}%</Chip>}
@@ -39,11 +28,15 @@ function ProfileCard({
         >
           <Button color="success" onClick={() => {
            
-            setShowModal(!showModal);
+            setShowModal(!showModal)
+            setUserID(key);
           }}>See more</Button>
         </div>
       </div>
     </div>
+    
+    </div>
+
   );
 }
 
@@ -72,12 +65,30 @@ export const Matches = () => {
     
   ];
 
+  const navigation = useNavigate();
+  const userIdList = navigation.getState().route.state.data;
+  const [userInformation, setUserInformation] = React.useState({});
+
+  axios
+      .post(`${API_ENDPOINT}/getUserInformation`, { userIdList })
+      .then((response) => {
+        const data = response.data;
+        setUserInformation(data);
+        
+  
+      })
+      .catch((error) => {
+        console.error("Error fetching question data:", error);
+      });
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-
+   
   const [showModal, setShowModal] = React.useState(false);
 
+  const [userID, setUserID] = React.useState({});
+  
   return (
     <>
       {!showModal && (
@@ -89,15 +100,15 @@ export const Matches = () => {
           </div> 
           <div>
             <div className="profile-card-layout">
-              {data.map((item, index) => (
+              {userInformation.map((user, index) => (
                 <ProfileCard
                   key={index}
-                  name={item.name}
-                  score={item.score}
-                  blurb={item.blurb}
-                  profileImage={item.profileImage}
+                  name={user["profile"]["name"]}
+                  score={user["compatibilityScore"]}
+                  blurb={"hello"}
                   showModal={showModal}
                   setShowModal={setShowModal}
+                  setUserID={setUserID}
                 />
               ))}
             </div>
@@ -106,11 +117,16 @@ export const Matches = () => {
       )}
 
       {showModal && (
+        
+         
+    
         <div className="modal-card">
-          <div className="profile-container">
-            <div className="profile-name-modal">Jason</div>
-            <div className="profile-image-modal">
-              {/*             
+        
+      
+        <div className="profile-container">
+          <div className="profile-name-modal">Jason</div>
+          <div className="profile-image-modal">
+{/*             
           <Avatar
               isBordered
               radius="full"
@@ -131,40 +147,32 @@ export const Matches = () => {
         
         
 
-          <div className="user-description">
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-start",
-              }}
-            >
-              <div className="info-card">
-                <div className="card-header">Basic Info</div>
-
-              <div> 
-              <div className="info-title">Age: {age}</div> 
-              <div className="info-title">Gender: {gender}</div>
-              <div className="info-title">Occupation: {occupation}</div>
-              <div className="info-title">Has room: {hasRoom} </div>
-              <div className="info-title">Preferred Location:</div>
-              <Chip color="success">{location}</Chip>
-              <div className="info-title">Budget: </div>
-              <Chip color="success">{budget}</Chip>
+        <div className="user-description"> 
+        <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
+        <div className="info-card">  
+            <div className="card-header">
+              Basic Info
               </div>
 
+              <div> 
+              <div className="info-title">Age: {userInformation[userID]["profile"]["age"]}</div> 
+              <div className="info-title">Gender: {userInformation[userID]["profile"]["gender"]}</div>
+              <div className="info-title">Occupation: {userInformation[userID]["profile"]["occupation"]}</div>
+              <div className="info-title">Has room: {userInformation[userID]["profile"]["room"]} </div>
+              <div className="info-title">Preferred Location:</div>
+              <Chip color="success">{userInformation[userID]["profile"]["location"]}</Chip>
+              <div className="info-title">Budget: </div>
+              <Chip color="success">{userInformation[userID]["profile"]["budget"]}</Chip>
+              </div>
         </div>
         <div style={{ position: "absolute", scale: "120%", left: "55%" }} > 
         <span className="chart-title">
               Here's how you match
             </span>
 
-            <img src={chart} alt="chart" />  
-
-          
+            <img src={chart} alt="chart" />    
         </div>
-
-       
+      
 
         </div>
         <div style={{marginTop: "4%", flexDirection: "column"}}>
@@ -174,20 +182,24 @@ export const Matches = () => {
 
             <div style={{marginTop: "3%"}}> 
             <span className="chart-title" >
-             {question}
+             {userInformation[userID]["leadingPrompt"]}
             </span>
               
             </div> 
             <div style={{marginTop: "3%"}}> 
             <span className="chart-title">
-              {answer}
+              {userInformation[userID]["answer"]}
             </span>
             </div> 
 
               
           </div>
+
         </div>
+       
+      </div>
       )}
     </>
   );
 };
+
