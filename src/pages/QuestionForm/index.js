@@ -219,19 +219,18 @@ export const QuestionForm = () => {
                 ></Slider>
               </div>
             )}
-            {questionType === 2 ||
-              (questionType === 5 && (
-                <div className="h-64">
-                  <Textarea
-                    className="w-full mix-blend-multiply"
-                    minRows={64}
-                    placeholder="I think that..."
-                    value={textAnswer}
-                    onValueChange={setTextAnswer}
-                    size="lg"
-                  />
-                </div>
-              ))}
+            {(questionType === 2 || questionType === 5) && (
+              <div className="h-64">
+                <Textarea
+                  className="w-full mix-blend-multiply"
+                  minRows={64}
+                  placeholder="I think that..."
+                  value={textAnswer}
+                  onValueChange={setTextAnswer}
+                  size="lg"
+                />
+              </div>
+            )}
             {questionType === 4 && (
               <div className="w-full self-center flex flex-col gap-4 align-center justify-center">
                 <span className="w-full text-2xl text-balance text-center">

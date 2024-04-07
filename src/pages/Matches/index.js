@@ -1,15 +1,24 @@
 import React from "react";
 import { useEffect } from "react";
 import "./styles.css";
-import { Card, CardBody, Avatar, Button, Chip, Tooltip } from "@nextui-org/react";
-import axios from 'axios'; 
+import {
+  Card,
+  CardBody,
+  Avatar,
+  Button,
+  Chip,
+  Tooltip,
+} from "@nextui-org/react";
+import axios from "axios";
 
-
-
-function ProfileCard({ name, score, blurb, profileImage, showModal, setShowModal}) {
-
-
-
+function ProfileCard({
+  name,
+  score,
+  blurb,
+  profileImage,
+  showModal,
+  setShowModal,
+}) {
   return (
     <div>
     <div className="matches-card">
@@ -35,9 +44,6 @@ function ProfileCard({ name, score, blurb, profileImage, showModal, setShowModal
         </div>
       </div>
     </div>
-    
-    </div>
-    
   );
 }
 
@@ -69,9 +75,9 @@ export const Matches = () => {
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-   
+
   const [showModal, setShowModal] = React.useState(false);
-  
+
   return (
     <>
       {!showModal && (
@@ -100,16 +106,11 @@ export const Matches = () => {
       )}
 
       {showModal && (
-        
-         
-    
         <div className="modal-card">
-        
-      
-        <div className="profile-container">
-          <div className="profile-name-modal">Jason</div>
-          <div className="profile-image-modal">
-{/*             
+          <div className="profile-container">
+            <div className="profile-name-modal">Jason</div>
+            <div className="profile-image-modal">
+              {/*             
           <Avatar
               isBordered
               radius="full"
@@ -130,12 +131,16 @@ export const Matches = () => {
         
         
 
-        <div className="user-description"> 
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start" }}>
-        <div className="info-card">  
-            <div className="card-header">
-              Basic Info
-              </div>
+          <div className="user-description">
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-start",
+              }}
+            >
+              <div className="info-card">
+                <div className="card-header">Basic Info</div>
 
               <div> 
               <div className="info-title">Age: {age}</div> 
@@ -181,12 +186,8 @@ export const Matches = () => {
 
               
           </div>
-
         </div>
-       
-      </div>
       )}
     </>
   );
 };
-
