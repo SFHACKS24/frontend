@@ -11,6 +11,7 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { Textfit } from "react-textfit";
+import toast, { Toaster } from "react-hot-toast";
 import { getItem } from "../../helpers/localStorage";
 import { API_ENDPOINT } from "../../helpers/api";
 
@@ -41,8 +42,9 @@ export const QuestionForm = () => {
   const [choices, setChoices] = React.useState(new Set([]));
   const [targetUser, setTargetUser] = React.useState("");
   const [cookie, setCookie] = React.useState("");
-  const [softmatch, setSoftmatch] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [buttonLoading, setButtonLoading] = React.useState(false);
+  const [toastId, setToastId] = React.useState(null);
 
   const refreshCachedAnswers = () => {
     setBinaryAnswer(true);
@@ -50,6 +52,7 @@ export const QuestionForm = () => {
     setTextAnswer("");
     setChoices(new Set([]));
     setErrorMessage("");
+    setIsLoaded(false);
   };
 
   const uploadAnswer = (data) =>
@@ -63,6 +66,7 @@ export const QuestionForm = () => {
     let isPrompt = false;
     let isPromptAns = false;
     let userId;
+    setButtonLoading(true);
     switch (questionType) {
       case 0: {
         answer = binaryAnswer;
@@ -85,6 +89,7 @@ export const QuestionForm = () => {
       case 5: {
         answer = textAnswer;
         isPromptAns = true;
+        userId = targetUser;
         break;
       }
       case 3: {
@@ -113,10 +118,11 @@ export const QuestionForm = () => {
         // TODO: Prompt was bad, ask again
         setErrorMessage(prompt);
         // fetchQuestion();
+        setButtonLoading(false);
       } else if (status === 2) {
         // Short-circuit
         fetchQuestion();
-        setSoftmatch(true);
+        notifyShortCircuit();
       }
     } catch (err) {
       console.error("Error uploading answer:", err);
@@ -127,8 +133,8 @@ export const QuestionForm = () => {
   const handleBinaryFalse = () => setBinaryAnswer(false);
 
   const fetchQuestion = useCallback(() => {
-    setIsLoaded(false);
     refreshCachedAnswers();
+    setButtonLoading(false);
     axios
       .post(`${API_ENDPOINT}/getQuestion`, { cookie })
       .then((response) => {
@@ -149,6 +155,62 @@ export const QuestionForm = () => {
         console.error("Error fetching question data:", error);
       });
   }, [navigate, cookie]);
+
+  const dismissToast = (id) => {
+    toast.dismiss(id);
+    axios
+      .post(`${API_ENDPOINT}/getDirectRecommendation`, { cookie })
+      .then((response) => {
+        const data = response.data;
+        const { qnsType, content, userId, qnsId } = data;
+        setQuestionId(qnsId);
+        setQuestionType(qnsType);
+        setQuestionText(content);
+        setTargetUser(userId);
+
+        if (qnsType === 6) {
+          // Redirect to the matches page
+          navigate("/matches", { state: { data } });
+        }
+        setIsLoaded(true);
+      })
+      .catch((error) => {
+        console.error("Error short circuiting:", error);
+      });
+  };
+
+  const notifyShortCircuit = () =>
+    toast.custom(
+      (t) => (
+        <div
+          className={`${
+            t.visible ? "animate-enter" : "animate-leave"
+          } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+        >
+          <div className="flex-1 w-0 p-4">
+            <div className="flex items-start">
+              <div className="ml-3 flex-1">
+                <p className="mt-1 text-md text-black-700">
+                  Looks like you have some matches!
+                </p>
+                <p className="mt-1 text-sm text-gray-500">
+                  Want to answer their questions?
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex border-l border-gray-200">
+            <button
+              onClick={() => dismissToast(t.id)}
+              className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              Let's go!
+            </button>
+          </div>
+        </div>
+      ),
+      { duration: 10000 }
+    );
 
   useEffect(() => {
     // Fetch the question data from the backend
@@ -175,6 +237,7 @@ export const QuestionForm = () => {
   */
   return (
     <>
+      <Toaster position="bottom-center" />
       {!isLoaded && <CircularProgress label="Loading..." />}
       {isLoaded && (
         <div className="flex flex-col gap-10 align-center justify-center pb-2 w-full h-full">
@@ -281,9 +344,10 @@ export const QuestionForm = () => {
             <Button
               color="primary"
               onClick={handleSubmit}
+              isLoading={buttonLoading}
               className="self-center w-1/4"
             >
-              Next
+              {buttonLoading ? "Submitting" : "Next"}
             </Button>
           </div>
         </div>
