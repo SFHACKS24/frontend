@@ -12,9 +12,10 @@ import {
   Button,
   CardFooter,
   Slider,
-  CardHeader,
 } from "@nextui-org/react";
-import { getItem } from "../../helpers/localStorage";
+import { getItem, setItem } from "../../helpers/localStorage";
+import { useNavigate } from "react-router-dom";
+import { API_ENDPOINT } from "../../helpers/api";
 
 const genders = [
   ["M", "Male"],
@@ -24,22 +25,37 @@ const genders = [
 ];
 
 export const Profile = () => {
-  const [hasRoom, setHasRoom] = React.useState(true);
-  const [name, setName] = React.useState("");
-  const [occupation, setOccupation] = React.useState("");
-  const [age, setAge] = React.useState("");
-  const [gender, setGender] = React.useState("M");
-  const [location, setLocation] = React.useState("");
-  const [budget, setBudget] = React.useState(5000);
+  const navigate = useNavigate();
+  const profileData = getItem("profileData") || {};
+  // console.log(profileData);
+  const [hasRoom, setHasRoom] = React.useState(
+    typeof profileData.room !== "undefined" ? profileData.room : true
+  );
+  const [name, setName] = React.useState(profileData.name || "");
+  const [occupation, setOccupation] = React.useState(
+    profileData.occupation || ""
+  );
+  const [age, setAge] = React.useState(profileData.age || "");
+  const [gender, setGender] = React.useState(profileData.gender || "M");
+  const [location, setLocation] = React.useState(profileData.location || "");
+  const [budget, setBudget] = React.useState(profileData.budget || 5000);
   const [userId, setUserId] = React.useState("");
 
-  const uploadDataToBackend = (data) => {
-    axios.post("/profile", data);
+  const uploadProfile = async (data) => {
+    if (!userId) {
+      setUserId(getItem("userId"));
+    }
+    const profileData = { ...data, cookie: userId };
+    try {
+      await axios.post(`${API_ENDPOINT}/saveProfileInfo`, profileData);
+    } catch (error) {
+      console.error("Error uploading profile data:", error);
+    }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const profileData = {
-      hasRoom,
+      room: hasRoom,
       name,
       occupation,
       age,
@@ -49,13 +65,12 @@ export const Profile = () => {
     };
 
     // Save the user's profile data to localStorage
-    localStorage.setItem("profileData", JSON.stringify(profileData));
+    setItem("profileData", profileData);
 
     // Upload the data to the backend
-    uploadDataToBackend(profileData);
+    await uploadProfile(profileData);
 
-    // Redirect to the next page
-    window.location.href = "/questions";
+    navigate("/questions");
   };
 
   const handleSelectionChange = (e) => {
@@ -65,15 +80,15 @@ export const Profile = () => {
   useEffect(() => {
     const storedId = getItem("userId");
     if (!storedId) {
-      window.location.href = "/";
+      navigate("/");
     }
     // TODO: Check if the user has already filled out their profile
     setUserId(storedId);
-  }, []);
+  }, [navigate]);
 
   return (
-    <div className="profile-container">
-      <span className="text-xl pb-4 profile-title">
+    <div className="input-container">
+      <span className="text-xl pb-4 input-title">
         Let's start this journey. Tell us about yourself!
       </span>
       <Card
