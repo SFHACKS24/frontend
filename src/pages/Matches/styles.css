@@ -24,6 +24,8 @@
 
 }
 
+
+
 .profile-card {
   width: 240px;
   height: 300px;
@@ -87,11 +89,99 @@ backdrop-filter: blur(24.231727600097656px);
   backdrop-filter: blur(48.46px);
 }
 
-.profile-description {
+.profile-image-modal {
+  width: 128px;
+  height: 128px;
+  left: 12px;
+  top: 12px;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.40);
+  box-shadow: 0px 3.738461494445801px 24.231727600097656px #A9CFD7;
+  border-radius: 9999px;
+  border: 0.81px white solid;
+  backdrop-filter: blur(48.46px);
+}
 
+
+
+.profile-description {
   overflow: scroll;
   text-overflow: ellipsis;
   max-width: 100%;
   max-height: 40%;
   word-wrap: break-word; /* Allow multiline text */
+}
+
+.modal-card {
+  width: 70%;
+  height: 80%;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.40);
+  border-radius: 35.30px;
+  overflow: hidden;
+  border: 1.18px solid white;
+  backdrop-filter: blur(70.60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 9.41px;
+}
+
+.profile-name-modal {
+  left: 120px;
+  top: 21px;
+  position: absolute;
+  color: rgba(0, 0, 0, 0.60);
+  font-size: 30px;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+  margin-top: 12%;
+  margin-left: 24%;
+}
+
+.chip-container-modal {
+ 
+  position: absolute;
+  margin-top: 48%;
+  margin-left: 80%;
+}
+
+.user-description {
+  margin-top:6%;
+  margin-left: 3%;
+  margin-right: 3%;
+  overflow: scroll;
+  text-overflow: ellipsis;
+  max-width: fit-content;
+  max-height: fit-content;
+  word-wrap: break-word; 
+  flex-direction: row;
+}
+
+.info-card{
+  width: 400px;
+  height: fit-content;
+  padding: 16px;
+  background: rgb(	239, 248, 249, 0.2);
+  border-radius: 20px;
+  /* overflow: hidden; */
+  border: 1.18px solid white;
+  backdrop-filter: blur(80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 9.41px;
+}
+
+.card-header{
+  font-size: 20px;
+  font-family: 'DM Sans';
+  font-weight: 400;
+  line-height: 20px;
+  word-wrap: break-word;
+ 
 }
