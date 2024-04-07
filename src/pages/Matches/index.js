@@ -20,6 +20,7 @@ import axios from "axios";
 import { XCircleIcon } from "@heroicons/react/16/solid";
 import { API_ENDPOINT } from "../../helpers/api";
 import { getItem } from "../../helpers/localStorage";
+import { color } from "framer-motion";
 
 const userData = [
   {
@@ -186,8 +187,8 @@ export const Matches = () => {
                           </h5>
                         </div>
                       </div>
-                      <Chip color="default">
-                        Compatibility: {user["compatibilityScore"]}%
+                      <Chip color="success">
+                        Compatibility: {10* user["compatibilityScore"]}%
                       </Chip>
                     </CardHeader>
                     <CardBody className="px-3 py-0 text-small text-default-400">
@@ -226,7 +227,7 @@ export const Matches = () => {
 
       {showModal && (
         <div className="custom-card">
-        <Card className="w-3/4 p-8">
+        <Card className="w-3/4 p-8"  >
           <CardHeader className="justify-between">
             <div className="flex gap-5">
               <Avatar
@@ -246,12 +247,13 @@ export const Matches = () => {
               </div>
             </div>
             <Chip color="success" className="ml-auto text-md">
-              Compatibility: {userInformation[activeUser]["compatibilityScore"]}
+              Compatibility: {10*userInformation[activeUser]["compatibilityScore"]}
               %
             </Chip>
             <Button
               isIconOnly
               className="text-default-900/60 data-[hover]:bg-foreground/10 -translate-y-12 translate-x-4"
+              color="success"
               radius="full"
               variant="light"
               onPress={closeModal}

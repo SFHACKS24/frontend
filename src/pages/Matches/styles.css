@@ -188,3 +188,9 @@ backdrop-filter: blur(24.231727600097656px);
   font-weight: 700;
   font-size: 24px;
 }
+
+.custom-card {
+  background-color: #a9cfd7;
+  border-radius: 18px;
+  display: flex;
+}
