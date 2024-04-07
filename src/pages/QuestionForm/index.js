@@ -244,7 +244,7 @@ export const QuestionForm = () => {
           {questionText && (
             <Textfit
               mode="multi"
-              className="text-[3.2vw] text-center object-contain w-3/4 h-48 self-center text-primary"
+              className="text-center object-contain w-3/4 h-36 self-center text-primary"
             >
               {questionText}
             </Textfit>

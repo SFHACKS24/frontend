@@ -15,34 +15,29 @@
   padding-left: 25%;
 }
 
-
 .chip-container {
   margin-top: 48px;
   margin-left: 88px;
   height: 12px;
   display: flex;
   flex-wrap: wrap;
-
 }
-
-
 
 .profile-card {
   width: 240px;
   height: 300px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.40);
-  border-radius: 35.30px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 35.3px;
   overflow: hidden;
   border: 1.18px solid white;
-  backdrop-filter: blur(70.60px);
+  backdrop-filter: blur(70.6px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: 9.41px;
 }
-
 
 /* .profile-image{
   fill: rgba(255, 255, 255, 0.40);
@@ -52,26 +47,21 @@ filter: drop-shadow(0px 3.738px 24.232px #A9CFD7);
 backdrop-filter: blur(24.231727600097656px);
 } */
 
-
-
-
 .profile-container {
   width: 240px;
   height: 100px;
   position: relative;
   display: flex;
   flex-direction: column;
-
 }
-
 
 .profile-name {
   left: 93.17px;
   top: 21px;
   position: absolute;
-  color: rgba(0, 0, 0, 0.60);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 20px;
-  font-family: 'DM Sans';
+  font-family: "DM Sans";
   font-weight: 400;
   line-height: 20px;
   word-wrap: break-word;
@@ -83,8 +73,8 @@ backdrop-filter: blur(24.231727600097656px);
   left: 12px;
   top: 12px;
   position: absolute;
-  background: rgba(255, 255, 255, 0.40);
-  box-shadow: 0px 3.738461494445801px 24.231727600097656px #A9CFD7;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 3.738461494445801px 24.231727600097656px #a9cfd7;
   border-radius: 9999px;
   border: 0.81px white solid;
   backdrop-filter: blur(48.46px);
@@ -96,14 +86,12 @@ backdrop-filter: blur(24.231727600097656px);
   left: 12px;
   top: 12px;
   position: absolute;
-  background: rgba(255, 255, 255, 0.40);
-  box-shadow: 0px 3.738461494445801px 24.231727600097656px #A9CFD7;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0px 3.738461494445801px 24.231727600097656px #a9cfd7;
   border-radius: 9999px;
   border: 0.81px white solid;
   backdrop-filter: blur(48.46px);
 }
-
-
 
 .profile-description {
   overflow: scroll;
@@ -117,11 +105,11 @@ backdrop-filter: blur(24.231727600097656px);
   width: 70%;
   height: 80%;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.40);
-  border-radius: 35.30px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 35.3px;
   overflow: hidden;
   border: 1.18px solid white;
-  backdrop-filter: blur(70.60px);
+  backdrop-filter: blur(70.6px);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -133,9 +121,9 @@ backdrop-filter: blur(24.231727600097656px);
   left: 120px;
   top: 21px;
   position: absolute;
-  color: rgba(0, 0, 0, 0.60);
+  color: rgba(0, 0, 0, 0.6);
   font-size: 30px;
-  font-family: 'DM Sans';
+  font-family: "DM Sans";
   font-weight: 400;
   line-height: 20px;
   word-wrap: break-word;
@@ -144,29 +132,28 @@ backdrop-filter: blur(24.231727600097656px);
 }
 
 .chip-container-modal {
- 
   position: absolute;
   margin-top: 40%;
   margin-left: 80%;
 }
 
 .user-description {
-  margin-top:6%;
+  margin-top: 6%;
   margin-left: 3%;
   margin-right: 3%;
   overflow: scroll;
   text-overflow: ellipsis;
   max-width: fit-content;
   max-height: fit-content;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   flex-direction: row;
 }
 
-.info-card{
+.info-card {
   width: 400px;
   height: fit-content;
   padding: 16px;
-  background: rgb(	239, 248, 249, 0.2);
+  background: rgb(239, 248, 249, 0.2);
   border-radius: 20px;
   /* overflow: hidden; */
   border: 1.18px solid white;
@@ -178,19 +165,17 @@ backdrop-filter: blur(24.231727600097656px);
   gap: 9.41px;
 }
 
-.card-header{
+.card-header {
   font-size: 20px;
-  font-family: 'DM Sans';
+  font-family: "DM Sans";
   font-weight: 400;
   line-height: 20px;
   word-wrap: break-word;
- 
 }
-
 
 .matches-title {
   color: #00697f;
-  font-family: 'DM Sans';
+  font-family: "DM Sans";
   font-weight: 700;
   font-size: 24px;
 }

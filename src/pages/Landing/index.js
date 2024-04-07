@@ -12,8 +12,9 @@ export const Landing = () => {
       startSession();
       // navigate("/profile");
     } else {
-      navigate("/questions");
+      // navigate("/questions");
     }
+    navigate("/profile");
   };
   return (
     <div className="landing-container gap-4">
