@@ -18,7 +18,7 @@ export const Landing = () => {
   };
   return (
     <div className="landing-container gap-4">
-      <img className="size-48" src="/greenflag.png" alt="logo" />
+      <img className="size-36" src="/greenflag.png" alt="logo" />
       <h1 className="text-8xl text-primary">greenflags</h1>
       <h2 className="pb-5 subfont">
         Supercharged roommate vibechecks

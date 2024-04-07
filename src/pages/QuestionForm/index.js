@@ -292,14 +292,17 @@ export const QuestionForm = () => {
                     {errorMessage}
                   </span>
                 )}
+                <div className="text-container">
                 <Textarea
                   className="w-full mix-blend-multiply"
                   minRows={64}
+                  variant="bordered"
                   placeholder="I think that..."
                   value={textAnswer}
                   onValueChange={setTextAnswer}
                   size="lg"
                 />
+                 </div>
               </div>
             )}
             {questionType === 4 && (
@@ -310,13 +313,16 @@ export const QuestionForm = () => {
                 <span className="text-xl text-balance text-center">
                   Make it count!
                 </span>
+                <div className="text-container">
                 <Textarea
                   minRows={12}
                   className="w-full mix-blend-multiply"
+                  variant="bordered"
                   placeholder="For e.g. If I were trapped in a fire, would you save me or my dog first?"
                   value={textAnswer}
                   onValueChange={setTextAnswer}
                 ></Textarea>
+                </div>
               </div>
             )}
             {questionType === 3 && (

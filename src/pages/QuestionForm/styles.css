@@ -2,3 +2,27 @@
   font-weight: 700;
   color: #00697f;
 }
+
+
+.text-container{
+  /* background-color: rgba(217, 242, 245, 0.4);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 8px 20px rgba#00697f; */
+  border-radius: 18px;
+  opacity: 0.8;
+  background: rgba(217, 242, 245, 0.4);
+  box-shadow: 0px 43.235px 43.235px 0px rgba(67,172,182, 0.6);
+  backdrop-filter: blur(43.235294342041016px);
+  
+  
+
+}
+
+Textarea{
+  border-color: #00697f;
+
+}
