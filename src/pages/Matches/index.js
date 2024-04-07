@@ -284,6 +284,19 @@ export const Matches = () => {
               <span className="pt-2 text-gray-600 text-balance pb-4">
                 {userInformation[activeUser]["profile"]["location"]}
               </span>
+              {userInformation[activeUser]["answer"] && (
+                <>
+                  <span className="pt-2 pb-2 text-primary text-lg">
+                    Answered Prompt
+                  </span>
+                  <span className="pt-2 pb-2 text-gray-400 text-md">
+                    {userInformation[activeUser]["leadingPrompt"]}
+                  </span>
+                  <span className="pt-2 text-gray-600 text-balance pb-4 text-sm">
+                    {userInformation[activeUser]["answer"]}
+                  </span>
+                </>
+              )}
             </div>
             <Divider orientation="vertical" className="m-4" />
             <div className="flex flex-col w-1/2 h-full">
