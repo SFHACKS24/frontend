@@ -21,31 +21,26 @@ function ProfileCard({
 }) {
   return (
     <div>
-      <div className="matches-card">
-        <div className="profile-card">
-          <div className="profile-container">
-            <div className="profile-name">{name}</div>
-            <div className="profile-image">
-              <img src={profileImage} alt="Profile" />
-            </div>
-            <div className="chip-container">
-              {score !== null && <Chip color="success">{score}%</Chip>}
-            </div>
+    <div className="matches-card">
+      <div className="profile-card">
+        <div className="profile-container">
+          <div className="profile-name">{name}</div>
+          <div className="profile-image">
+            <img src={profileImage} alt="Profile" />
           </div>
-          <div className="profile-description">{blurb}</div>
-          <div
-            className="profile-button-container"
-            style={{ position: "absolute", bottom: "16px" }}
-          >
-            <Button
-              color="success"
-              onClick={() => {
-                setShowModal(!showModal);
-              }}
-            >
-              See more
-            </Button>
-          </div>
+          <div className="chip-container">
+            {score !== null && <Chip color="success">{score}%</Chip>}
+          </div> 
+        </div>
+        <div className="profile-description">{blurb}</div>
+        <div
+          className="profile-button-container"
+          style={{ position: "absolute", bottom: "16px" }}
+        >
+          <Button color="success" onClick={() => {
+           
+            setShowModal(!showModal);
+          }}>See more</Button>
         </div>
       </div>
     </div>
@@ -57,38 +52,24 @@ export default ProfileCard;
 export const Matches = () => {
   const [profileImage, setProfileImage] = React.useState("");
   const [name, setName] = React.useState("");
-  const [score, setScore] = React.useState(null);
+  const [score, setScore] = React.useState(90); 
   const [blurb, setBlurb] = React.useState("");
 
+  const [age, setAge] = React.useState(""); 
+  const [ gender, setGender] = React.useState("");
+  const [occupation, setOccupation] = React.useState("");
+  const [hasRoom, setHasRoom] = React.useState(true);
+  const [location, setLocation] = React.useState("Berkeley");
+  const [budget, setBudget] = React.useState(0);
+  const [question , setQuestion] = React.useState("question placeholder");
+  const [answer, setAnswer] = React.useState("answer placeholder");
+  const [chart, setChart] = React.useState("src/images/chart.png");
+  
   const data = [
-    {
-      name: "John",
-      score: 90,
-      blurb:
-        "I'm a software developer with experience in web development and mobile app development. I'm looking for roommates to play music with. ",
-      profileImage: "src/images/profile-img1.jpg",
-    },
-    {
-      name: "Jane",
-      score: 85,
-      blurb:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      profileImage: "src/images/profile-img1.jpg",
-    },
-    {
-      name: "Alice",
-      score: 95,
-      blurb:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      profileImage: "src/images/profile-img1.jpg",
-    },
-    {
-      name: "Bob",
-      score: 80,
-      blurb:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      profileImage: "src/images/profile-img1.jpg",
-    },
+    { name: 'John', score: 90, blurb: "I'm a software developer with experience in web development and mobile app development. I'm looking for roommates to play music with. ", profileImage: "src/images/profile-img1.jpg"},
+    { name: 'Jane', score: 85, blurb: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', profileImage: "src/images/profile-img1.jpg"},
+    { name: 'Alice', score: 95, blurb: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.' , profileImage: "src/images/profile-img1.jpg"}
+    
   ];
 
   const toggleModal = () => {
@@ -101,11 +82,11 @@ export const Matches = () => {
     <>
       {!showModal && (
         <div>
-          <div>
-            <span className="text-xl pb-4 profile-title">
-              Here are your matches!
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <span className="text-xl pb-4 matches-title">
+            We found some potential matches for you!
             </span>
-          </div>
+          </div> 
           <div>
             <div className="profile-card-layout">
               {data.map((item, index) => (
@@ -137,21 +118,18 @@ export const Matches = () => {
               src="/favicon.ico"
               showFallback
             /> */}
-            </div>
-
-            <div className="chip-container-modal">
-              <Chip color="success" style={{ scale: "150%" }}>
-                90%
-              </Chip>
-            </div>
+          </div> 
+      
+          <div className="chip-container-modal">
+            <Chip color="success" style={{scale: "150%"}}>{score}</Chip>
           </div>
-          <Chip
-            onClose={toggleModal}
-            color="success"
-            style={{ position: "absolute", scale: "120%", right: "3%" }}
-          >
-            Close
-          </Chip>
+         
+        </div>
+        <Chip onClose={toggleModal} color="success"  style={{ position: "absolute", scale: "120%", right: "3%" }}>
+         
+        </Chip>
+        
+        
 
           <div className="user-description">
             <div
@@ -164,35 +142,49 @@ export const Matches = () => {
               <div className="info-card">
                 <div className="card-header">Basic Info</div>
 
-                <div>
-                  <div className="info-title">Age: </div>
-                  <div className="info-title">Gender: </div>
-                  <div className="info-title">Occupation: </div>
-                  <div className="info-title">Has room: </div>
-                  <div className="info-title">Preferred Location: </div>
-                  <Chip color="success">Berkeley</Chip>
-                  <div className="info-title">Budget: </div>
-                  <Chip color="success">1200</Chip>
-                </div>
+              <div> 
+              <div className="info-title">Age: {age}</div> 
+              <div className="info-title">Gender: {gender}</div>
+              <div className="info-title">Occupation: {occupation}</div>
+              <div className="info-title">Has room: {hasRoom} </div>
+              <div className="info-title">Preferred Location:</div>
+              <Chip color="success">{location}</Chip>
+              <div className="info-title">Budget: </div>
+              <Chip color="success">{budget}</Chip>
               </div>
-              <div style={{ position: "absolute", scale: "120%", left: "55%" }}>
-                <span className="chart-title">Here's how you match</span>
 
-                <img src="src/images/chart.png" alt="chart" />
-              </div>
-            </div>
-            <div style={{ marginTop: "4%", flexDirection: "column" }}>
-              <span className="text-xl pb-4 profile-title">
-                Answers to your questions
-              </span>
+        </div>
+        <div style={{ position: "absolute", scale: "120%", left: "55%" }} > 
+        <span className="chart-title">
+              Here's how you match
+            </span>
 
-              <div style={{ marginTop: "3%" }}>
-                <span className="chart-title">Questions:</span>
-              </div>
-              <div style={{ marginTop: "3%" }}>
-                <span className="chart-title">Answer:</span>
-              </div>
-            </div>
+            <img src={chart} alt="chart" />  
+
+          
+        </div>
+
+       
+
+        </div>
+        <div style={{marginTop: "4%", flexDirection: "column"}}>
+            <span className="text-xl pb-4 profile-title">
+              Answers to your questions
+            </span>
+
+            <div style={{marginTop: "3%"}}> 
+            <span className="chart-title" >
+             {question}
+            </span>
+              
+            </div> 
+            <div style={{marginTop: "3%"}}> 
+            <span className="chart-title">
+              {answer}
+            </span>
+            </div> 
+
+              
           </div>
         </div>
       )}
