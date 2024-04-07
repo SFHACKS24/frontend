@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./styles.css";
 import {
   Card,
@@ -7,13 +7,15 @@ import {
   Button,
   Chip,
   Tooltip,
+  user,
 } from "@nextui-org/react";
 import axios from "axios";
 import { API_ENDPOINT } from "../../helpers/api";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getItem } from "../../helpers/localStorage";
 
 function ProfileCard({
-  key,
+  dataKey,
   name,
   score,
   blurb,
@@ -42,7 +44,8 @@ function ProfileCard({
               color="success"
               onClick={() => {
                 setShowModal(!showModal);
-                setUserID(key);
+                console.log(dataKey)
+                setUserID(dataKey);
               }}
             >
               See more
@@ -57,6 +60,7 @@ function ProfileCard({
 export default ProfileCard;
 
 export const Matches = () => {
+  const navigate = useNavigate();
   const [profileImage, setProfileImage] = React.useState("");
   const [name, setName] = React.useState("");
   const [score, setScore] = React.useState(90);
@@ -96,28 +100,42 @@ export const Matches = () => {
     },
   ];
 
-  const navigation = useNavigate();
-  const { state } = useLocation();
-  const { userIdList } = state;
+  // const navigation = useNavigate();
+  // const { state } = useLocation();
+  // const { userIdList } = state;
   const [userInformation, setUserInformation] = React.useState({});
 
-  axios
-    .post(`${API_ENDPOINT}/getUserInformation`, { userIdList })
-    .then((response) => {
-      const data = response.data;
-      setUserInformation(data);
-    })
-    .catch((error) => {
-      console.error("Error fetching question data:", error);
-    });
+  const [cookie, setCookie] = React.useState("");
+
+  const [showModal, setShowModal] = React.useState(false);
+
+  const [userIDs, setUserIDs] = React.useState([]);
+
+  const fetchRanking = useCallback(async () => {
+    const { content } = (await axios
+      .post(`${API_ENDPOINT}/getRanking`, { cookie })).data;
+    console.log(content);
+    setUserIDs(content);
+
+
+    const data = (await axios
+      .post(`${API_ENDPOINT}/getprofile`, { cookie, userIds: content })).data;
+    console.log(data);
+    setUserInformation(data);
+  }, [navigate, cookie]);
+
+  useEffect(() => {
+    const storedId = getItem("userId");
+    setCookie(storedId);
+    if (!storedId) return navigate("/");
+    fetchRanking();
+  }, [navigate, cookie]);
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
 
-  const [showModal, setShowModal] = React.useState(false);
-
-  const [userID, setUserID] = React.useState({});
+  const [singleUserID, setSingleUser] = React.useState("");
 
   return (
     <>
@@ -132,13 +150,13 @@ export const Matches = () => {
             <div className="profile-card-layout">
               {Object.values(userInformation).map((user, index) => (
                 <ProfileCard
-                  key={index}
+                  dataKey={index}
                   name={user["profile"]["name"]}
                   score={user["compatibilityScore"]}
                   blurb={"hello"}
                   showModal={showModal}
                   setShowModal={setShowModal}
-                  setUserID={setUserID}
+                  setUserID={setSingleUser}
                 />
               ))}
             </div>
@@ -186,25 +204,25 @@ export const Matches = () => {
 
                 <div>
                   <div className="info-title">
-                    Age: {userInformation[userID]["profile"]["age"]}
+                    Age: {userInformation[singleUserID]["profile"]["age"]}
                   </div>
                   <div className="info-title">
-                    Gender: {userInformation[userID]["profile"]["gender"]}
+                    Gender: {userInformation[singleUserID]["profile"]["gender"]}
                   </div>
                   <div className="info-title">
                     Occupation:{" "}
-                    {userInformation[userID]["profile"]["occupation"]}
+                    {userInformation[singleUserID]["profile"]["occupation"]}
                   </div>
                   <div className="info-title">
-                    Has room: {userInformation[userID]["profile"]["room"]}{" "}
+                    Has room: {userInformation[singleUserID]["profile"]["room"]}{" "}
                   </div>
                   <div className="info-title">Preferred Location:</div>
                   <Chip color="success">
-                    {userInformation[userID]["profile"]["location"]}
+                    {userInformation[singleUserID]["profile"]["location"]}
                   </Chip>
                   <div className="info-title">Budget: </div>
                   <Chip color="success">
-                    {userInformation[userID]["profile"]["budget"]}
+                    {userInformation[singleUserID]["profile"]["budget"]}
                   </Chip>
                 </div>
               </div>
@@ -221,12 +239,12 @@ export const Matches = () => {
 
               <div style={{ marginTop: "3%" }}>
                 <span className="chart-title">
-                  {userInformation[userID]["leadingPrompt"]}
+                  {userInformation[singleUserID]["leadingPrompt"]}
                 </span>
               </div>
               <div style={{ marginTop: "3%" }}>
                 <span className="chart-title">
-                  {userInformation[userID]["answer"]}
+                  {userInformation[singleUserID]["answer"]}
                 </span>
               </div>
             </div>
