@@ -307,10 +307,10 @@ export const QuestionForm = () => {
             )}
             {questionType === 4 && (
               <div className="w-full self-center flex flex-col gap-4 align-center justify-center">
-                <span className="w-full text-2xl text-balance text-primary">
+                <span className="w-full text-2xl text-balance text-primary text-center">
                   Now it's your turn. What question would you ask your roommate?
                 </span>
-                <span className="text-xl text-balance text-center">
+                <span className="text-xl text-balance text-primary text-center">
                   Make it count!
                 </span>
                 <div className="text-container">
