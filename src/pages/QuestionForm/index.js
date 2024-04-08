@@ -10,7 +10,6 @@ import {
   Slider,
   Textarea,
 } from "@nextui-org/react";
-import { Textfit } from "react-textfit";
 import toast, { Toaster } from "react-hot-toast";
 import { getItem } from "../../helpers/localStorage";
 import { API_ENDPOINT } from "../../helpers/api";
@@ -242,12 +241,9 @@ export const QuestionForm = () => {
       {isLoaded && (
         <div className="flex flex-col gap-10 align-center justify-center pb-2 w-full h-full">
           {questionText && (
-            <Textfit
-              mode="multi"
-              className="text-center object-contain w-3/4 h-36 self-center text-primary"
-            >
+            <span className="text-center object-contain w-3/4 h-36 self-center text-primary">
               {questionText}
-            </Textfit>
+            </span>
           )}
           <div className="w-1/2 self-center flex flex-col gap-10 align-center justify-center">
             {questionType === 0 && (
@@ -293,16 +289,16 @@ export const QuestionForm = () => {
                   </span>
                 )}
                 <div className="text-container">
-                <Textarea
-                  className="w-full mix-blend-multiply"
-                  minRows={64}
-                  variant="bordered"
-                  placeholder="I think that..."
-                  value={textAnswer}
-                  onValueChange={setTextAnswer}
-                  size="lg"
-                />
-                 </div>
+                  <Textarea
+                    className="w-full mix-blend-multiply"
+                    minRows={64}
+                    variant="bordered"
+                    placeholder="I think that..."
+                    value={textAnswer}
+                    onValueChange={setTextAnswer}
+                    size="lg"
+                  />
+                </div>
               </div>
             )}
             {questionType === 4 && (
@@ -314,14 +310,14 @@ export const QuestionForm = () => {
                   Make it count!
                 </span>
                 <div className="text-container">
-                <Textarea
-                  minRows={12}
-                  className="w-full mix-blend-multiply"
-                  variant="bordered"
-                  placeholder="For e.g. If I were trapped in a fire, would you save me or my dog first?"
-                  value={textAnswer}
-                  onValueChange={setTextAnswer}
-                ></Textarea>
+                  <Textarea
+                    minRows={12}
+                    className="w-full mix-blend-multiply"
+                    variant="bordered"
+                    placeholder="For e.g. If I were trapped in a fire, would you save me or my dog first?"
+                    value={textAnswer}
+                    onValueChange={setTextAnswer}
+                  ></Textarea>
                 </div>
               </div>
             )}
